@@ -19,16 +19,21 @@ let s:sl_resource = [
       \"  \\/g_/      \\_O=====O=====O=====O/      \\_/               \\_/   \\_/    \\_/   \\_/",
       \]
 
-function g:vim_sl#sl()
+function! g:vim_sl#sl()
   let l:term_columns = str2nr(execute("set columns")->split("=")[1])
   let l:term_row = str2nr(execute("set lines")->split("=")[1])
 
   let l:sl = popup_create("", {"line": float2nr(floor((l:term_row-len(s:sl_resource))/2.0))})
 
-  for i in range(l:term_columns)
-    call popup_settext(l:sl, map(copy(s:sl_resource), {idx, v -> v[0:i]}))
+  for l:i in range(l:term_columns)
+    call popup_settext(l:sl, map(copy(s:sl_resource), {idx, v -> v[0:l:i]}))
     call popup_move(l:sl,
-          \{ "col": l:term_columns - i})
+          \{ "col": l:term_columns - l:i})
+    redraw
+    sleep 20m
+  endfor
+  for l:i in range(len(s:sl_resource[0]))
+    call popup_settext(l:sl, map(copy(s:sl_resource), {idx, v -> v[l:i:]}))
     redraw
     sleep 20m
   endfor
