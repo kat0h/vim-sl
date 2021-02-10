@@ -1,5 +1,5 @@
 # Vim SL
-イライラプラグイン
+A vim plugin.
 
 # Usage
 ```:Q```
